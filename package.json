@@ -1,0 +1,25 @@
+{
+  "name": "virsical-jssdk",
+  "version": "0.0.6",
+  "description": "Virsical 3.0 JS SDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qiaolb/virsical.jssdk"
+  },
+  "keywords": [
+    "Virsical"
+  ],
+  "author": "Joe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qiaolb/virsical.jssdk/issues"
+  },
+  "homepage": "https://github.com/qiaolb/virsical.jssdk#readme",
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  }
+}

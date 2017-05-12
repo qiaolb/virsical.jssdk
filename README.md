@@ -46,5 +46,5 @@ virsical.captureQR({
 		var code = res.code; //失败编码
 		alert("fail" + "-" + msg + "-" + code);
 }
-	});
+});
 ```

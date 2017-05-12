@@ -39,7 +39,7 @@
     Virsical.config = function(info){
         if(getPlatform()==_platform_android){
             window.control.config(info.debug, info.client_id, info.client_secret);
-            isDebugger = info.debug();
+            isDebugger = info.debug;
         } else if(getPlatform()==_platform_ios){
             //TODO ios
         }

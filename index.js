@@ -6,6 +6,7 @@
     'use strict';
     var Virsical;
     Virsical = new Object;
+    var isDebugger = false;
 
     const _platform_other = 0;
     const _platform_android = 1;
@@ -28,7 +29,7 @@
             return _platform_android;
 //        }else(!!u.match(/\(i[^;]+;(U;)?CPU.+MacOSX/)){ //ios终端
 //            return _platform_ios;
-        }else{// 其他设备
+        } else{// 其他设备
             return _platform_other;
         }
     }
@@ -38,7 +39,8 @@
     Virsical.config = function(info){
         if(getPlatform()==_platform_android){
             window.control.config(info.debug, info.client_id, info.client_secret);
-        }else if(getPlatform()==_platform_ios){
+            isDebugger = info.debug();
+        } else if(getPlatform()==_platform_ios){
             //TODO ios
         }
     }
@@ -51,17 +53,17 @@
     //webview调用，config成功
     function configReady(){
         setHadConfig();
-        configReadyCallback();
+        configReadyCallback && configReadyCallback();
     }
 
     var configErrorCallback;
     Virsical.error = function(callbackFunction){
         configErrorCallback = callbackFunction;
-    }
+    };
 
     //webview调用，config失败
     function configError(){
-        configReadyCallback({
+        configReadyCallback && configReadyCallback({
             msg: mg,
             code: cd
         });
@@ -79,9 +81,12 @@
             alert("Please config app first");
             return;
         }
-        loginTimer = setTimeout("loginTimeout()", login_timeout_during);
+
         loginSuccessCallback = callbackFunction.success;
         loginFailCallback = callbackFunction.fail;
+
+        // loginTimer = setTimeout(loginTimeout(), login_timeout_during);
+
         if(getPlatform()==_platform_android){
             window.control.login();
         }else if(getPlatform()==_platform_ios){
@@ -98,16 +103,17 @@
     function loginResult(result, json, cd, mg){
         clearTimeout(loginTimer);
         if (result == 0){
-            loginSuccessCallback({
+            loginSuccessCallback && loginSuccessCallback({
                 info: json
             });
-        }else{
-            loginFailCallback({
+        } else {
+            loginFailCallback && loginFailCallback({
                 msg: mg,
                 code: cd
             });
         }
     }
+
 
     var selectImageSuccessCallback;
     //选择图片
@@ -130,6 +136,7 @@
             localIds: ids
         });
     }
+
 
     //预览图片
     Virsical.previewImage = function(info){
@@ -188,7 +195,6 @@
         }
     }
 
-
     var workspaceSuccessCallback;
     var workspaceFailCallback;
     //扫描二维码
@@ -219,6 +225,13 @@
             });
         }
     }
+
+    window.configReady = configReady;
+    window.configError = configError;
+    window.loginResult = loginResult;
+    window.imageResult = imageResult;
+    window.locationResult = locationResult;
+    window.captureQRResult = captureQRResult;
 
     return Virsical;
 })));

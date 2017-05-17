@@ -1,7 +1,6 @@
 # Virsical 3.0 JS SDK
 
 [![npm](https://img.shields.io/npm/v/virsical-jssdk.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/virsical-jssdk)
-![react-version](https://img.shields.io/badge/react%20version-15.0.0%20or%20later-61dafb.svg)
 ![license-mit](https://img.shields.io/badge/license-MIT-42cd00.svg)
 
 ## install

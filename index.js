@@ -226,12 +226,22 @@
         }
     }
 
+    var messageCallback;
+    Virsical.messageCallback = function (callback) {
+        messageCallback = callback;
+    }
+
+    function sendMessage(message) {
+        messageCallback && messageCallback(message);
+    }
+
     window.configReady = configReady;
     window.configError = configError;
     window.loginResult = loginResult;
     window.imageResult = imageResult;
     window.locationResult = locationResult;
     window.captureQRResult = captureQRResult;
+    window.sendMessage = sendMessage;
 
     return Virsical;
 })));

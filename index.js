@@ -8,9 +8,9 @@
     Virsical = new Object;
     var isDebugger = false;
 
-    const _platform_other = 0;
-    const _platform_android = 1;
-    const _platform_ios = 2;
+    var _platform_other = 0;
+    var _platform_android = 1;
+    var _platform_ios = 2;
 
 
     function setHadConfig(){
@@ -27,9 +27,9 @@
         var u = navigator.userAgent;
         if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1){ //android终端
             return _platform_android;
-//        }else(!!u.match(/\(i[^;]+;(U;)?CPU.+MacOSX/)){ //ios终端
-//            return _platform_ios;
-        } else{// 其他设备
+        }else if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
+            return _platform_ios;
+        }else{// 其他设备
             return _platform_other;
         }
     }
@@ -37,11 +37,13 @@
 
     //绑定第三方应用分配的client_id和client_secret
     Virsical.config = function(info){
+         
         if(getPlatform()==_platform_android){
             window.control.config(info.debug, info.client_id, info.client_secret);
             isDebugger = info.debug;
-        } else if(getPlatform()==_platform_ios){
+        }else if(getPlatform()==_platform_ios){
             //TODO ios
+            window.location.href = 'vsk3browser://config?'+info.debug+'&'+info.client_id+'&'+info.client_secret;
         }
     }
 
@@ -86,11 +88,13 @@
         loginFailCallback = callbackFunction.fail;
 
         // loginTimer = setTimeout(loginTimeout(), login_timeout_during);
-
+         
+         
         if(getPlatform()==_platform_android){
             window.control.login();
         }else if(getPlatform()==_platform_ios){
             //TODO ios
+            window.location.href = 'vsk3browser://login';
         }
     }
 
@@ -205,10 +209,12 @@
         }
         workspaceSuccessCallback = callbackFunction.success;
         workspaceFailCallback = callbackFunction.fail;
+         
         if(getPlatform()==_platform_android){
             window.captureqr.scan();
         }else if(getPlatform()==_platform_ios){
             //TODO ios
+            window.location.href = 'vsk3browser://captureqr';
         }
     }
 
@@ -245,5 +251,3 @@
 
     return Virsical;
 })));
-
-

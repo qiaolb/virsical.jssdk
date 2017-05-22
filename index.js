@@ -43,7 +43,7 @@
             isDebugger = info.debug;
         }else if(getPlatform()==_platform_ios){
             //TODO ios
-            window.location.href = 'vsk3browser://config?'+info.debug+'&'+info.client_id+'&'+info.client_secret;
+            window.location.href = 'vsk3browser://config?'+'debug='+info.debug+'&'+'clientid='+info.client_id+'&'+'clientsecret='+info.client_secret;
         }
     }
 

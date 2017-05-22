@@ -1,6 +1,6 @@
 {
   "name": "virsical-jssdk",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Virsical 3.0 JS SDK",
   "main": "index.js",
   "scripts": {

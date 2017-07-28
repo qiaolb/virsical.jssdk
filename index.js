@@ -11,6 +11,7 @@
     var _platform_other = 0;
     var _platform_android = 1;
     var _platform_ios = 2;
+    var _platform_mac = 3;
 
 
     function setHadConfig(){
@@ -27,8 +28,10 @@
         var u = navigator.userAgent;
         if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1){ //android终端
             return _platform_android;
-        }else if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
+        }else if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
             return _platform_ios;
+        }else if(!!u.match(/Mac OS X/)) {
+            return _platform_mac;
         }else{// 其他设备
             return _platform_other;
         }
@@ -37,11 +40,11 @@
 
     //绑定第三方应用分配的client_id和client_secret
     Virsical.config = function(info){
-         
-        if(getPlatform()==_platform_android){
+        var platform = getPlatform();
+        if(platform == _platform_android){
             window.control.config(info.debug, info.client_id, info.client_secret);
             isDebugger = info.debug;
-        }else if(getPlatform()==_platform_ios){
+        }else if(platform==_platform_ios || platform == _platform_mac ){
             //TODO ios
             window.location.href = 'vsk3browser://config?'+'debug='+info.debug+'&'+'clientid='+info.client_id+'&'+'clientsecret='+info.client_secret;
         }
@@ -88,11 +91,11 @@
         loginFailCallback = callbackFunction.fail;
 
         // loginTimer = setTimeout(loginTimeout(), login_timeout_during);
+        var platform = getPlatform();
          
-         
-        if(getPlatform()==_platform_android){
+        if(platform==_platform_android){
             window.control.login();
-        }else if(getPlatform()==_platform_ios){
+        }else if(platform==_platform_ios || platform == _platform_mac){
             //TODO ios
             window.location.href = 'vsk3browser://login';
         }
@@ -209,10 +212,10 @@
         }
         workspaceSuccessCallback = callbackFunction.success;
         workspaceFailCallback = callbackFunction.fail;
-         
-        if(getPlatform()==_platform_android){
+        var platform = getPlatform();
+        if(platform==_platform_android){
             window.captureqr.scan();
-        }else if(getPlatform()==_platform_ios){
+        }else if(platform==_platform_ios || platform == _platform_mac){
             //TODO ios
             window.location.href = 'vsk3browser://captureqr';
         }

@@ -3,6 +3,9 @@
         typeof define === 'function' && define.amd ? define(factory) :
             global.Virsical = factory()
 }(this, (function () {
+	
+	document.write(" <script language=\"javascript\" src=\"qwebchannel.js\" > </script>"); 
+	
     'use strict';
     var Virsical;
     Virsical = new Object;
@@ -12,6 +15,7 @@
     var _platform_android = 1;
     var _platform_ios = 2;
     var _platform_mac = 3;
+	var _platform_Windows = 4;
 
 
     function setHadConfig(){
@@ -23,6 +27,14 @@
 //        return sessionStorage.getItem("configStatus");
         return true;
     }
+	
+	//Windows终端接口
+	function clickConfig(id, secret) {
+            new QWebChannel(qt.webChannelTransport, function (channel) {
+                var content = channel.objects.content;
+                content.clickConfig(id,secret);
+            });
+        }
 
     function getPlatform(){
         var u = navigator.userAgent;
@@ -32,7 +44,9 @@
             return _platform_ios;
         }else if(!!u.match(/Mac OS X/)) {
             return _platform_mac;
-        }else{// 其他设备
+        }else if(u.indexOf('QtWebEngine')> -1){//Windows终端
+			return _platform_Windows;
+		}else{// 其他设备
             return _platform_other;
         }
     }
@@ -47,6 +61,9 @@
         }else if(platform==_platform_ios || platform == _platform_mac ){
             //TODO ios
             window.location.href = 'vsk3browser://config?'+'debug='+info.debug+'&'+'clientid='+info.client_id+'&'+'clientsecret='+info.client_secret;
+        }else if(platform==_platform_Windows){
+            //TODO Windows
+			clickConfig(info.client_id, info.client_secret);
         }
     }
 

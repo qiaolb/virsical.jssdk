@@ -56,7 +56,11 @@
     Virsical.config = function(info){
         var platform = getPlatform();
         if(platform == _platform_android){
-            window.control.config(info.debug, info.client_id, info.client_secret);
+            try {
+                window.control.config(info.debug, info.client_id, info.client_secret);
+            } catch(e) {
+                throw new Error(e);
+            }
             isDebugger = info.debug;
         }else if(platform==_platform_ios || platform == _platform_mac ){
             //TODO ios
@@ -65,6 +69,7 @@
             //TODO Windows
 			clickConfig(info.client_id, info.client_secret);
         }
+        throw new Error("Device validation failed, only support for mobile devices");
     }
 
     var configReadyCallback;
@@ -111,7 +116,11 @@
         var platform = getPlatform();
          
         if(platform==_platform_android){
-            window.control.login();
+            try {
+                window.control.login();
+            } catch(e) {
+                throw new Error(e);
+            }
         }else if(platform==_platform_ios || platform == _platform_mac){
             //TODO ios
             window.location.href = 'vsk3browser://login';

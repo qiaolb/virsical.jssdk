@@ -4,7 +4,7 @@
             global.Virsical = factory()
 }(this, (function () {
 	
-	document.write(" <script language=\"javascript\" src=\"qwebchannel.js\" > </script>"); 
+	// document.write(" <script language=\"javascript\" src=\"qwebchannel.js\" > </script>");
 	
     'use strict';
     var Virsical;

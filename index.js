@@ -69,9 +69,13 @@
         var platform = getPlatform();
         if (platform == _platform_android) {
             try {
-                window
-                    .control
-                    .config(info.debug, info.client_id, info.client_secret);
+                if (window.control) {
+                    window
+                        .control
+                        .config(info.debug, info.client_id, info.client_secret);
+                } else {
+                    window.location.href = 'vsk3browser://config?debug=' + info.debug + '&clientid=' + info.client_id + '&clientsecret=' + info.client_secret;
+                }
             } catch (e) {
                 throw new Error(e);
             }
@@ -103,7 +107,7 @@
     };
 
     //webview调用，config失败
-    function configError() {
+    function configError(mg, cd) {
         configReadyCallback && configReadyCallback({msg: mg, code: cd});
     }
 
@@ -131,9 +135,13 @@
 
         if (platform == _platform_android) {
             try {
-                window
-                    .control
-                    .login();
+                if (window.control) {
+                    window
+                        .control
+                        .login();
+                } else {
+                    window.location.href = 'vsk3browser://login';
+                }
             } catch (e) {
                 throw new Error(e);
             }
@@ -246,9 +254,13 @@
         workspaceFailCallback = callbackFunction.fail;
         var platform = getPlatform();
         if (platform == _platform_android) {
-            window
-                .captureqr
-                .scan();
+            if (window.captureqr) {
+                window
+                    .captureqr
+                    .scan();
+            } else {
+                window.location.href = 'vsk3browser://captureqr';
+            }
         } else if (platform == _platform_ios || platform == _platform_mac) {
             //TODO ios
             window.location.href = 'vsk3browser://captureqr';

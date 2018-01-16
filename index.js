@@ -6,6 +6,7 @@
             ? define(factory)
             : global.Virsical = factory()
 }(this, (function () {
+    var QWebChannel = require("./qwebchannel").QWebChannel;
 
     // document.write(" <script language=\"javascript\" src=\"qwebchannel.js\" >
     // </script>");
@@ -148,6 +149,13 @@
         } else if (platform == _platform_ios || platform == _platform_mac) {
             //TODO ios
             window.location.href = 'vsk3browser://login';
+        }
+		else if(platform==_platform_Windows){
+            //TODO Windows
+            new QWebChannel(qt.webChannelTransport, function (channel) {
+                var content = channel.objects.content;
+                content.login();
+            })
         }
     }
 

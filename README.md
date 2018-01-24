@@ -2,6 +2,15 @@
 
 [![npm](https://img.shields.io/npm/v/virsical-jssdk.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/virsical-jssdk)
 ![license-mit](https://img.shields.io/badge/license-MIT-42cd00.svg)
+## build
+```npm
+webpack
+```
+
+## deploy
+```npm
+npm publish
+```
 
 ## install
 ```npm

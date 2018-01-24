@@ -1,14 +1,27 @@
+/**
+ * Created by joe on 16/9/6.
+ */
+'use strict';
+
+let path = require('path');
+
 module.exports = {
-    entry: './index.js',
-    output: {
-        path: __dirname,
-        filename: './dist/index.js',
-    },
-    module: {
-        loaders: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader'
-        }]
-    }
-}
+  entry: {
+    virsical: './src/virsical.js',
+    test: './src/test.js'
+  },
+  output: {
+    path: 'lib',
+    filename: '[name].js',
+    libraryTarget: "umd"
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.(js)$/,
+        loader: 'babel-loader',
+        include: [path.join(__dirname, './src')]
+      }
+    ]
+  }
+};

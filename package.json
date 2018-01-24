@@ -1,8 +1,8 @@
 {
   "name": "virsical-jssdk",
-  "version": "0.2.2",
+  "version": "0.3.2",
   "description": "Virsical 3.0 JS SDK",
-  "main": "dist/index.js",
+  "main": "lib/virsical.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

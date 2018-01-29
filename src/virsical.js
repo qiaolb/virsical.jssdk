@@ -263,4 +263,6 @@ const Virsical = {
   messageCallback: messageCallback
 };
 
+window.Virsical = Virsical;
+
 export default Virsical;

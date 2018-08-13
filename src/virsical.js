@@ -243,12 +243,42 @@ const sendMessage = (message) => {
   messageCallback && messageCallback(message);
 };
 
+
+let contactsSuccessCallback;
+let contactsFailCallback;
+//获取手机通讯录
+const phoneContacts = callbackFunction => {
+  if (!hadConfig()) {
+    alert("Please config app first");
+    return;
+  }
+  contactsSuccessCallback = callbackFunction.success;
+  contactsFailCallback = callbackFunction.fail;
+
+  if (getPlatform() == _platform_android) {
+    window.contacts.loadPhoneContacts(callbackFunction.refresh);
+  } else if (getPlatform() == _platform_ios) {
+    //TODO ios
+    window.location.href = 'vsk3browser://loadPhoneContacts?' + 'refresh=' + callbackFunction.refresh
+  }
+};
+
+//手机通讯录返回结果
+const phoneContactsResult = (result, json, cd, mg) => {
+  if (result == 0) {
+    contactsSuccessCallback({result: json});
+  } else {
+    contactsFailCallback({msg: mg, code: cd});
+  }
+};
+
 window.configReady = configReady;
 window.configError = configError;
 window.loginResult = loginResult;
 window.imageResult = imageResult;
 window.locationResult = locationResult;
 window.captureQRResult = captureQRResult;
+window.phoneContactsResult = phoneContactsResult;
 window.sendMessage = sendMessage;
 
 const Virsical = {
@@ -260,7 +290,8 @@ const Virsical = {
   selectImage: selectImage,
   previewImage: previewImage,
   location: location,
-  messageCallback: messageCallback
+  messageCallback: messageCallback,
+  phoneContacts: phoneContacts
 };
 
 window.Virsical = Virsical;

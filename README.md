@@ -4,7 +4,7 @@
 ![license-mit](https://img.shields.io/badge/license-MIT-42cd00.svg)
 ## build
 ```npm
-webpack
+yarn webpack
 ```
 
 ## deploy

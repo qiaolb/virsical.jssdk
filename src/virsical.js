@@ -244,6 +244,22 @@ const sendMessage = (message) => {
 };
 
 
+//针对iOS系统，显示或隐藏左上角的返回按钮，参数为boolean类型，传入true隐藏按钮，传入false显示按钮
+//如果当前不是iOS系统，什么都不做
+const setBackButtonHidden4iOS = (hidden) => {
+
+  const platform = getPlatform();
+  if (platform == _platform_ios) {
+    if (hidden) {
+      window.location.href = 'vsk3browser://html5?action=hideBack';
+    } else {
+      window.location.href = 'vsk3browser://html5?action=showBack';
+    }
+  }
+
+};
+
+
 let contactsSuccessCallback;
 let contactsFailCallback;
 //获取手机通讯录
@@ -291,7 +307,8 @@ const Virsical = {
   previewImage: previewImage,
   location: location,
   messageCallback: messageCallback,
-  phoneContacts: phoneContacts
+  phoneContacts: phoneContacts,
+  setBackButtonHidden4iOS: setBackButtonHidden4iOS
 };
 
 window.Virsical = Virsical;

@@ -288,6 +288,16 @@ const phoneContactsResult = (result, json, cd, mg) => {
   }
 };
 
+//通过web修改ios端页面title
+const setIOSTitle = (title) => {
+  const platform = getPlatform();
+  if (title || title == '') {
+    if (platform == _platform_ios || platform == _platform_mac) {
+      window.location.href = 'vsk3browser://updateTitle?title=' + title;
+    }
+  }
+};
+
 window.configReady = configReady;
 window.configError = configError;
 window.loginResult = loginResult;
@@ -296,6 +306,7 @@ window.locationResult = locationResult;
 window.captureQRResult = captureQRResult;
 window.phoneContactsResult = phoneContactsResult;
 window.sendMessage = sendMessage;
+window.setIOSTitle = setIOSTitle;
 
 const Virsical = {
   config: config,
@@ -308,7 +319,8 @@ const Virsical = {
   location: location,
   messageCallback: messageCallback,
   phoneContacts: phoneContacts,
-  setBackButtonHidden4iOS: setBackButtonHidden4iOS
+  setBackButtonHidden4iOS: setBackButtonHidden4iOS,
+  setIOSTitle: setIOSTitle
 };
 
 window.Virsical = Virsical;
